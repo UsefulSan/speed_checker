@@ -16,7 +16,7 @@ cur = conn.cursor()
 
 
 class MyHttpRequestHandler(http.server.CGIHTTPRequestHandler):
-    def do_GET(self):
+    def do_GET(self) -> None:
         cur.execute("SELECT * FROM construction_equipment;")
         rows = cur.fetchall()
 
@@ -32,18 +32,23 @@ class MyHttpRequestHandler(http.server.CGIHTTPRequestHandler):
         try:
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            content_length = int(self.headers.get('Content-Length'))
-            request_body = self.rfile.read(content_length)
-            data = json.loads(request_body)
-            if (isinstance(data["type_equipment"], str) and isinstance(data["model"], str)
-                    and isinstance(data["speed"], int) and isinstance(data["max_speed"], int)):
-                cur.execute("INSERT INTO construction_equipment (type_equipment, model, speed, max_speed) "
-                            "VALUES (%s, %s, %s, %s)", (data["type_equipment"], data["model"], data["speed"],
-                                                        data["max_speed"]))
-                conn.commit()
-                self.send_response(201)
-            else:
-                self.send_error(400, "Bad request")
+            content_length = self.headers.get('Content-Length')
+            if isinstance(content_length, str):
+                content_length = int(content_length)
+                request_body = self.rfile.read(content_length)
+                data = json.loads(request_body)
+                if (isinstance(data["type_equipment"], str)
+                        and isinstance(data["model"], str)
+                        and isinstance(data["speed"], int)
+                        and isinstance(data["max_speed"], int)):
+                    cur.execute("INSERT INTO construction_equipment (type_equipment, model, speed, max_speed) "
+                                "VALUES (%s, %s, %s, %s)",
+                                (data["type_equipment"],
+                                 data["model"],
+                                 data["speed"],
+                                 data["max_speed"]))
+                    conn.commit()
+                    self.send_response(201)
         except json.decoder.JSONDecodeError:
             self.send_error(400, "Bad request")
 
