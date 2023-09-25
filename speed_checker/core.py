@@ -19,7 +19,6 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 
-
 class MyHttpRequestHandler(http.server.CGIHTTPRequestHandler):
     def do_GET(self) -> None:
         """
