@@ -78,50 +78,5 @@ class TestDoGET(unittest.TestCase):
         mock_self.wfile.write.assert_called_with(b'[["equipment1", 100, 80, 20], ["equipment2", 120, 100, 20]]')
 
 
-class TestDoPUT(unittest.TestCase):
-    def setUp(self) -> None:
-        self.request = MagicMock()
-
-    def test_valid_resource_id_valid_data(self) -> None:
-        self.request.path = "/resource/?id=1"
-        self.request.headers = {'Content-Length': '50'}
-        self.request.rfile.read.return_value = (b'{"type_equipment": "excavator", '
-                                                b'"model": "model1", '
-                                                b'"speed": 10, '
-                                                b'"max_speed": 20}')
-
-        # Call the do_PUT function or the object containing the function
-        # and assert the expected response
-        # Example: obj.do_PUT()
-
-    def test_valid_resource_id_missing_data(self) -> None:
-        self.request.path = "/resource/?id=1"
-        self.request.headers = {'Content-Length': '50'}
-        self.request.rfile.read.return_value = b'{"model": "model1", "speed": 10}'
-
-        # Call the do_PUT function or the object containing the function
-        # and assert the expected response
-        # Example: obj.do_PUT()
-
-    def test_invalid_resource_id(self) -> None:
-        self.request.path = "/resource/?id=100"
-        self.request.headers = {'Content-Length': '50'}
-        self.request.rfile.read.return_value = (b'{"type_equipment": "excavator", '
-                                                b'"model": "model1", "speed": 10, "max_speed": 20}')
-
-        # Call the do_PUT function or the object containing the function
-        # and assert the expected response
-        # Example: obj.do_PUT()
-
-    def test_invalid_url_path(self) -> None:
-        self.request.path = "/invalid_path"
-        self.request.headers = {'Content-Length': '50'}
-        self.request.rfile.read.return_value = (b'{"type_equipment": "excavator", "model": "model1", '
-                                                b'"speed": 10, "max_speed": 20}')
-
-        # Call the do_PUT function or the object containing the function
-        # and assert the
-
-
 if __name__ == '__main__':
     unittest.main()
