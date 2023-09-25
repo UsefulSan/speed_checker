@@ -1,10 +1,10 @@
 import http.server
 import json
-import re
 import os
-from dotenv import load_dotenv
+import re
 
 import psycopg2
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -17,6 +17,7 @@ conn = psycopg2.connect(
     password="123456")
 
 cur = conn.cursor()
+
 
 
 class MyHttpRequestHandler(http.server.CGIHTTPRequestHandler):
