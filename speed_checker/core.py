@@ -1,11 +1,17 @@
 import http.server
 import json
 import re
+import os
+from dotenv import load_dotenv
 
 import psycopg2
 
+load_dotenv()
+
+host = "postgres" if os.environ.get("EXECUTION_ENVIRONMENT") == "DOCKER" else "localhost"
+
 conn = psycopg2.connect(
-    host="localhost",
+    host=host,
     database="resources",
     user="postgres",
     password="123456")
@@ -158,11 +164,11 @@ class MyHttpRequestHandler(http.server.CGIHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    host = 'localhost'
+    host = ''
     port = 8000
     handler = MyHttpRequestHandler
     httpd = http.server.HTTPServer((host, port), handler)
-    print(f"Server running on port http://{host}:{port}")
+    print(f"Server running on port http://localhost:{port}/resource")
     httpd.serve_forever()
 
     # Закрытие соединения с базой данных

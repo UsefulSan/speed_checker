@@ -2,10 +2,14 @@ cfgv==3.4.0
 distlib==0.3.7
 filelock==3.12.4
 identify==2.5.29
+mypy==1.5.1
+mypy-extensions==1.0.0
 nodeenv==1.8.0
 platformdirs==3.10.0
 pre-commit==3.4.0
 psycopg2==2.9.7
+python-dotenv==1.0.0
 PyYAML==6.0.1
 ruff==0.0.291
+typing_extensions==4.8.0
 virtualenv==20.24.5

@@ -12,7 +12,7 @@ def create_db() -> None:
      - psycopg2.errors.DuplicateDatabase: Если база данных с именем "resources" уже существует.
     """
     try:
-        conn = psycopg2.connect(dbname="postgres", user="postgres", password="123456", host="localhost")
+        conn = psycopg2.connect(dbname="postgres", user="postgres", password="123456", host="postgres")
         cursor = conn.cursor()
 
         conn.autocommit = True
@@ -45,7 +45,7 @@ def create_table() -> None:
 
     Наконец, объекты курсора и соединения закрываются, чтобы освободить ресурсы. 
     """
-    conn = psycopg2.connect(dbname="resources", user="postgres", password="123456", host="localhost")
+    conn = psycopg2.connect(dbname="resources", user="postgres", password="123456", host="postgres")
     cursor = conn.cursor()
     cursor.execute("CREATE TABLE IF NOT EXISTS construction_equipment "
                    "(id SERIAL PRIMARY KEY, "
@@ -66,7 +66,7 @@ def fill_table() -> None:
     Заполняет таблицу 'construction_equipment' в базе данных 'resources' заданными данными об оборудовании.
     Для взаимодействия с базой данных используется соединение с PostgreSQL.
     """
-    conn = psycopg2.connect(dbname="resources", user="postgres", password="123456", host="localhost")
+    conn = psycopg2.connect(dbname="resources", user="postgres", password="123456", host="postgres")
     cursor = conn.cursor()
 
     equipment = [('Dump Truck', '101', 63, 80),
